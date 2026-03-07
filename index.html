@@ -3,22 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Github Issue Tracker</title>
+    <title>Dashboard - GitHub Issues Tracker</title>
     <link rel="stylesheet" href="style.css">
-    <!-- tailwind css and daisy ui -->
-     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
-     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-     <!-- google fonts -->
-      <link rel="preconnect" href="https://fonts.googleapis.com">
+   <!-- tailwind and daisy ut -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<!-- google fonts -->
+ <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
 <!-- font awesome  -->
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-
-
 </head>
-<body>
+<body class=" text-[#C9D1D9] min-h-screen ">
+    <nav class=" border-2 shadow-sm p-4 sticky top-0 z-50">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <img src="./assets/github-logo.png" class="w-8" alt="Logo">
+                <span class="text-lg font-bold text-black"> Github Issues Tracker</span>
+            </div>
+            <div class="flex w-full md:w-auto gap-2">
+                <div class="relative">
+                    <span class="absolute top-2 px-1 -left-0 "><i class="fa-brands fa-sistrix"></i></span>
+                     <input type="text" id="searchInput" placeholder="Search all issues..." class="w-full md:w-80 px-5  py-3 rounded-md border text-xs text-gray-400 font-bold focus:outline-none focus:border-blue-500">
+
+                </div>
+               
+                <button onclick="handleSearch()" class="btn btn-primary px-4 py-2 rounded-md hover:bg-[#30363D] transition text-sm">+  New Issue</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container p-4 md:p-10 w-11/12 mx-auto">
+        
+            <div class="flex bg-white shadow-sm rounded-t-lg mb-8">
+                <button onclick="filterData('all')" id="tab-all" class="tab-active px-6 py-4 text-sm text-gray-400 font-bold">All</button>
+                <button onclick="filterData('open')" id="tab-open" class="px-6 py-4 text-sm text-[#8B949E]  transition">Open</button>
+                <button onclick="filterData('closed')" id="tab-closed" class="px-6 py-4 text-sm text-[#8B949E]">Closed</button>
+            </div>
+
+            <div class="p-6 flex flex-col sm:flex-row justify-between bg-white shadow-sm items-center gap-4">
+                <div class="flex items-center gap-2 text-sm">
+                    <div>
+                        <img src="./assets/Aperture.png" alt="">
+                    </div>
+                    <span class="font-bold text-black" id="issueCount">0</span> <span class="text-black font-bold">Issues</span>
+                </div>
+                <div class="flex gap-4 text-xs font-semibold">
+                    <span class="flex items-center gap-1.5"><span class="w-3 h-3 bg-[#3FB950] rounded-full"></span> Open</span>
+                    <span class="flex items-center gap-1.5"><span class="w-3 h-3 bg-[#A371F7] rounded-full"></span> Closed</span>
+                </div>
+            </div>
+
+        <div id="loader" class="text-center py-20">
+            <div class="animate-spin inline-block w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full"></div>
+            <p class="mt-4 text-gray-400">Loading issues...</p>
+        </div>
+
+        <div id="issuesContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+            </div>
+    </main>
+
+    <div id="modal" class="fixed inset-0 bg-black bg-opacity-70 hidden flex items-center justify-center p-4 z-[100] backdrop-blur-sm">
+        <div class="bg-[#161B22] border border-[#30363D] rounded-lg max-w-2xl w-full shadow-2xl overflow-hidden">
+            <div id="modalContent" class="p-8"></div>
+            <div class="p-4 bg-[#0D1117] border-t border-[#30363D] text-right">
+                <button onclick="closeModal()" class="bg-[#21262D] border border-[#30363D] text-white px-6 py-2 rounded-md font-semibold hover:bg-[#30363D] transition">Close</button>
+            </div>
+        </div>
+    </div>
+
     <script src="./script/script.js"></script>
 </body>
 </html>

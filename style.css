@@ -4,3 +4,7 @@
 .text-color-gray{
      color:gray;
 }
+ .tab-active { border-bottom: 2px solid #F78166; color: #F0F6FC; font-weight: 600; }
+        .card-open { border-top: 4px solid #3FB950; }
+        .card-closed { border-top: 4px solid #A371F7; }
+        #loader { display: none; }
