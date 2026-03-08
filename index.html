@@ -37,24 +37,36 @@
 
     <main class="container p-4 md:p-10 w-11/12 mx-auto">
         
-            <div class="flex bg-white shadow-sm rounded-t-lg mb-8">
-                <button onclick="filterData('all')" id="tab-all" class="tab-active px-6 py-4 text-sm text-gray-400 font-bold">All</button>
-                <button onclick="filterData('open')" id="tab-open" class="px-6 py-4 text-sm text-[#8B949E]  transition">Open</button>
-                <button onclick="filterData('closed')" id="tab-closed" class="px-6 py-4 text-sm text-[#8B949E]">Closed</button>
-            </div>
+           <div class="flex bg-white shadow-sm rounded-t-lg mb-8 gap-3 p-4">
+    <button onclick="filterData('all')" id="tab-all" class="px-10 py-2 text-sm font-bold bg-blue-700 text-white border rounded-sm">All</button>
+    <button onclick="filterData('open')" id="tab-open" class="px-10 py-2 text-sm font-bold text-gray-700 border rounded-sm">Open</button>
+    <button onclick="filterData('closed')" id="tab-closed" class="px-10 py-2 text-sm font-bold text-gray-700 border rounded-sm">Closed</button>
+</div>
 
-            <div class="p-6 flex flex-col sm:flex-row justify-between bg-white shadow-sm items-center gap-4">
-                <div class="flex items-center gap-2 text-sm">
-                    <div>
-                        <img src="./assets/Aperture.png" alt="">
-                    </div>
-                    <span class="font-bold text-black" id="issueCount">0</span> <span class="text-black font-bold">Issues</span>
-                </div>
-                <div class="flex gap-4 text-xs font-semibold">
-                    <span class="flex items-center gap-1.5"><span class="w-3 h-3 bg-[#3FB950] rounded-full"></span> Open</span>
-                    <span class="flex items-center gap-1.5"><span class="w-3 h-3 bg-[#A371F7] rounded-full"></span> Closed</span>
-                </div>
-            </div>
+<div class="flex flex-col sm:flex-row justify-between items-center bg-white border border-gray-100 p-6 rounded-lg shadow-sm mb-6">
+    <div class="flex items-center gap-3">
+        <div class="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center">
+            <img src="./assets/Aperture.png" alt="icon" class="w-6 h-6">
+        </div>
+        <div>
+            <h2 class="text-xl font-bold text-gray-800">
+                <span id="issueCount">0</span> Issues
+            </h2>
+            <p class="text-xs text-gray-500 font-medium">Track and manage your project issues</p>
+        </div>
+    </div>
+
+    <div class="flex gap-4 mt-4 sm:mt-0 text-sm font-semibold">
+        <div class="flex items-center gap-2">
+            <span class="w-3 h-3 bg-[#3FB950] rounded-full"></span>
+            <span class="text-gray-700">Open</span>
+        </div>
+        <div class="flex items-center gap-2">
+            <span class="w-3 h-3 bg-[#A371F7] rounded-full"></span>
+            <span class="text-gray-700">Closed</span>
+        </div>
+    </div>
+</div>
 
         <div id="loader" class="text-center py-20">
             <div class="animate-spin inline-block w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full"></div>
@@ -62,18 +74,53 @@
         </div>
 
         <div id="issuesContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+            
             </div>
     </main>
 
-    <div id="modal" class="fixed inset-0 bg-black bg-opacity-70 hidden flex items-center justify-center p-4 z-[100] backdrop-blur-sm">
-        <div class="bg-[#161B22] border border-[#30363D] rounded-lg max-w-2xl w-full shadow-2xl overflow-hidden">
-            <div id="modalContent" class="p-8"></div>
-            <div class="p-4 bg-[#0D1117] border-t border-[#30363D] text-right">
-                <button onclick="closeModal()" class="bg-[#21262D] border border-[#30363D] text-white px-6 py-2 rounded-md font-semibold hover:bg-[#30363D] transition">Close</button>
+    <div id="issueModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4 z-[100]">
+    <div class="bg-white rounded-xl shadow-2xl max-w-2xl w-full overflow-hidden transition-all transform scale-100">
+        <div class="p-8 border-b border-gray-100">
+            <h2 id="modalTitle" class="text-3xl font-extrabold text-gray-800 mb-3">Fix broken image uploads</h2>
+            <div class="flex flex-wrap items-center gap-3 text-sm font-medium">
+                <span id="modalStatus" class="px-3 py-1 bg-green-500 text-white rounded-full">Opened</span>
+                <span class="text-gray-400">•</span>
+                <span class="text-gray-500">Opened by <span id="modalAuthor" class="text-gray-700 font-bold">Fahim Ahmed</span></span>
+                <span class="text-gray-400">•</span>
+                <span id="modalDate" class="text-gray-400">22/02/2026</span>
+            </div>
+            <div class="flex gap-2 mt-5">
+                <span class="px-3 py-1 bg-red-50 text-red-500 rounded-md text-xs font-bold border border-red-100">BUG</span>
+                <span class="px-3 py-1 bg-orange-50 text-orange-500 rounded-md text-xs font-bold border border-orange-100">HELP WANTED</span>
             </div>
         </div>
-    </div>
 
+        <div class="p-8">
+            <p id="modalDescription" class="text-gray-600 leading-relaxed text-lg mb-8">
+                The navigation menu doesn't collapse properly on mobile devices. Need to fix the responsive behavior.
+            </p>
+            
+            <div class="grid grid-cols-2 gap-8">
+                <div>
+                    <h4 class="text-gray-400 text-sm font-bold uppercase tracking-wider mb-2">Assignee:</h4>
+                    <p id="modalAssignee" class="text-gray-800 font-bold text-lg">Fahim Ahmed</p>
+                </div>
+                <div>
+                    <h4 class="text-gray-400 text-sm font-bold uppercase tracking-wider mb-2">Priority:</h4>
+                    <span id="modalPriority" class="px-4 py-1 bg-red-500 text-white text-xs font-bold rounded-md uppercase">High</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-6 bg-gray-50 flex justify-end">
+            <button onclick="closeModal()" class="px-8 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition-colors shadow-lg">
+                Close
+            </button>
+        </div>
+    </div>
+</div>
+
+    
     <script src="./script/script.js"></script>
 </body>
 </html>
